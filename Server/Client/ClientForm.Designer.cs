@@ -1,6 +1,6 @@
-﻿namespace Server
+﻿namespace Client
 {
-    partial class Form1
+    partial class ClientForm
     {
         /// <summary>
         /// Required designer variable.
@@ -38,69 +38,69 @@
             // 
             // txtMsg
             // 
-            this.txtMsg.Location = new System.Drawing.Point(54, 211);
+            this.txtMsg.Location = new System.Drawing.Point(44, 209);
             this.txtMsg.Multiline = true;
             this.txtMsg.Name = "txtMsg";
             this.txtMsg.Size = new System.Drawing.Size(502, 101);
-            this.txtMsg.TabIndex = 9;
+            this.txtMsg.TabIndex = 14;
             // 
             // txtLog
             // 
-            this.txtLog.Location = new System.Drawing.Point(54, 95);
+            this.txtLog.Location = new System.Drawing.Point(44, 93);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.Size = new System.Drawing.Size(502, 91);
-            this.txtLog.TabIndex = 8;
+            this.txtLog.TabIndex = 13;
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(423, 39);
+            this.btnStart.Location = new System.Drawing.Point(392, 37);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(154, 25);
-            this.btnStart.TabIndex = 7;
-            this.btnStart.Text = "Start Listening";
+            this.btnStart.TabIndex = 12;
+            this.btnStart.Text = "Connect";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // txtPort
             // 
-            this.txtPort.Location = new System.Drawing.Point(228, 39);
+            this.txtPort.Location = new System.Drawing.Point(218, 37);
             this.txtPort.Name = "txtPort";
             this.txtPort.Size = new System.Drawing.Size(156, 22);
-            this.txtPort.TabIndex = 6;
+            this.txtPort.TabIndex = 11;
             this.txtPort.Text = "50000";
             // 
             // txtServer
             // 
-            this.txtServer.Location = new System.Drawing.Point(54, 39);
+            this.txtServer.Location = new System.Drawing.Point(44, 37);
             this.txtServer.Name = "txtServer";
             this.txtServer.Size = new System.Drawing.Size(156, 22);
-            this.txtServer.TabIndex = 5;
+            this.txtServer.TabIndex = 10;
             this.txtServer.Text = "127.0.0.1";
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(402, 332);
+            this.btnSend.Location = new System.Drawing.Point(392, 339);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(154, 25);
-            this.btnSend.TabIndex = 16;
+            this.btnSend.TabIndex = 15;
             this.btnSend.Text = "Send";
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
-            // Form1
+            // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(612, 450);
+            this.ClientSize = new System.Drawing.Size(664, 450);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.txtMsg);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.txtPort);
             this.Controls.Add(this.txtServer);
-            this.Name = "Form1";
-            this.Text = "Server";
+            this.Name = "ClientForm";
+            this.Text = "Client";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

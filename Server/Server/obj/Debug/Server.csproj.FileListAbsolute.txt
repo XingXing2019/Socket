@@ -7,4 +7,4 @@ F:\C#\Socket\Server\Server\obj\Debug\Server.csproj.GenerateResource.cache
 F:\C#\Socket\Server\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
 F:\C#\Socket\Server\Server\obj\Debug\Server.exe
 F:\C#\Socket\Server\Server\obj\Debug\Server.pdb
-F:\C#\Socket\Server\Server\obj\Debug\Server.Form1.resources
+F:\C#\Socket\Server\Server\obj\Debug\Server.ServiceForm.resources

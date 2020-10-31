@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -7,12 +8,13 @@ using System.Windows.Forms;
 
 namespace Server
 {
-    public partial class Form1 : Form
+    public partial class ServiceForm : Form
     {
-        private Socket socketSend;
-        public Form1()
+        private Dictionary<string, Socket> dict;
+        public ServiceForm()
         {
             InitializeComponent();
+            dict = new Dictionary<string, Socket>();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -40,14 +42,17 @@ namespace Server
         void Listen(object obj)
         {
             var socketWatch = obj as Socket;
+            if(socketWatch == null) return;
+
             while (true)
             {
                 try
                 {
-                    socketSend = socketWatch.Accept();
+                    var socketSend = socketWatch.Accept();
+                    dict[socketSend.RemoteEndPoint.ToString()] = socketSend;
+                    cmbClients.Items.Add(socketSend.RemoteEndPoint.ToString());
                     ShowMsg($"{socketSend.RemoteEndPoint} Connect Success");
-                    var thread = new Thread(Receive);
-                    thread.IsBackground = true;
+                    var thread = new Thread(Receive) {IsBackground = true};
                     thread.Start(socketSend);
                 }
                 catch (Exception ex)
@@ -60,6 +65,7 @@ namespace Server
         void Receive(object obj)
         {
             var socketSend = obj as Socket;
+            if(socketSend == null) return;
 
             while (true)
             {
@@ -92,7 +98,9 @@ namespace Server
         {
             var msg = txtMsg.Text;
             var buffer = Encoding.UTF8.GetBytes(msg);
-            socketSend.Send(buffer);
+
+            var endPoint = cmbClients.SelectedItem.ToString();
+            dict[endPoint].Send(buffer);
         }
     }
 }

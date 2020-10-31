@@ -1,5 +1,4 @@
 F:\C#\Socket\Server\Client\obj\Debug\Client.csprojAssemblyReference.cache
-F:\C#\Socket\Server\Client\obj\Debug\Client.Form1.resources
 F:\C#\Socket\Server\Client\obj\Debug\Client.Properties.Resources.resources
 F:\C#\Socket\Server\Client\obj\Debug\Client.csproj.GenerateResource.cache
 F:\C#\Socket\Server\Client\obj\Debug\Client.csproj.CoreCompileInputs.cache
@@ -8,3 +7,4 @@ F:\C#\Socket\Server\Client\bin\Debug\Client.exe
 F:\C#\Socket\Server\Client\bin\Debug\Client.pdb
 F:\C#\Socket\Server\Client\obj\Debug\Client.exe
 F:\C#\Socket\Server\Client\obj\Debug\Client.pdb
+F:\C#\Socket\Server\Client\obj\Debug\Client.ClientForm.resources

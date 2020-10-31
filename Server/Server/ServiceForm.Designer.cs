@@ -1,6 +1,6 @@
-﻿namespace Client
+﻿namespace Server
 {
-    partial class Form1
+    partial class ServiceForm
     {
         /// <summary>
         /// Required designer variable.
@@ -34,73 +34,83 @@
             this.txtPort = new System.Windows.Forms.TextBox();
             this.txtServer = new System.Windows.Forms.TextBox();
             this.btnSend = new System.Windows.Forms.Button();
+            this.cmbClients = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txtMsg
             // 
-            this.txtMsg.Location = new System.Drawing.Point(44, 209);
+            this.txtMsg.Location = new System.Drawing.Point(54, 230);
             this.txtMsg.Multiline = true;
             this.txtMsg.Name = "txtMsg";
             this.txtMsg.Size = new System.Drawing.Size(502, 101);
-            this.txtMsg.TabIndex = 14;
+            this.txtMsg.TabIndex = 9;
             // 
             // txtLog
             // 
-            this.txtLog.Location = new System.Drawing.Point(44, 93);
+            this.txtLog.Location = new System.Drawing.Point(54, 114);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.Size = new System.Drawing.Size(502, 91);
-            this.txtLog.TabIndex = 13;
+            this.txtLog.TabIndex = 8;
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(392, 37);
+            this.btnStart.Location = new System.Drawing.Point(402, 39);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(154, 25);
-            this.btnStart.TabIndex = 12;
-            this.btnStart.Text = "Connect";
+            this.btnStart.TabIndex = 7;
+            this.btnStart.Text = "Start Listening";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
             // txtPort
             // 
-            this.txtPort.Location = new System.Drawing.Point(218, 37);
+            this.txtPort.Location = new System.Drawing.Point(228, 39);
             this.txtPort.Name = "txtPort";
             this.txtPort.Size = new System.Drawing.Size(156, 22);
-            this.txtPort.TabIndex = 11;
+            this.txtPort.TabIndex = 6;
             this.txtPort.Text = "50000";
             // 
             // txtServer
             // 
-            this.txtServer.Location = new System.Drawing.Point(44, 37);
+            this.txtServer.Location = new System.Drawing.Point(54, 39);
             this.txtServer.Name = "txtServer";
             this.txtServer.Size = new System.Drawing.Size(156, 22);
-            this.txtServer.TabIndex = 10;
+            this.txtServer.TabIndex = 5;
             this.txtServer.Text = "127.0.0.1";
             // 
             // btnSend
             // 
-            this.btnSend.Location = new System.Drawing.Point(392, 339);
+            this.btnSend.Location = new System.Drawing.Point(402, 351);
             this.btnSend.Name = "btnSend";
             this.btnSend.Size = new System.Drawing.Size(154, 25);
-            this.btnSend.TabIndex = 15;
+            this.btnSend.TabIndex = 16;
             this.btnSend.Text = "Send";
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
-            // Form1
+            // cmbClients
+            // 
+            this.cmbClients.FormattingEnabled = true;
+            this.cmbClients.Location = new System.Drawing.Point(228, 352);
+            this.cmbClients.Name = "cmbClients";
+            this.cmbClients.Size = new System.Drawing.Size(154, 24);
+            this.cmbClients.TabIndex = 17;
+            // 
+            // ServiceForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(612, 450);
+            this.Controls.Add(this.cmbClients);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.txtMsg);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.txtPort);
             this.Controls.Add(this.txtServer);
-            this.Name = "Form1";
-            this.Text = "Client";
+            this.Name = "ServiceForm";
+            this.Text = "Server";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -115,6 +125,7 @@
         private System.Windows.Forms.TextBox txtPort;
         private System.Windows.Forms.TextBox txtServer;
         private System.Windows.Forms.Button btnSend;
+        private System.Windows.Forms.ComboBox cmbClients;
     }
 }
 
