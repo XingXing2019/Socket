@@ -20,21 +20,28 @@ namespace Server
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            // Create listening socket
-            var socketWatch = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            // Create Ip address 
-            var ip = IPAddress.Parse(txtServer.Text);
-            // Create Port
-            var point = new IPEndPoint(ip, Convert.ToInt32(txtPort.Text));
-            // Bind listen socket to Ip address and port
-            socketWatch.Bind(point);
-            ShowMsg("Success");
-            // Create listening queue
-            socketWatch.Listen(10);
+            try
+            {
+                // Create listening socket
+                var socketWatch = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                // Create Ip address 
+                var ip = IPAddress.Parse(txtServer.Text);
+                // Create Port
+                var point = new IPEndPoint(ip, Convert.ToInt32(txtPort.Text));
+                // Bind listen socket to Ip address and port
+                socketWatch.Bind(point);
+                ShowMsg("Success");
+                // Create listening queue
+                socketWatch.Listen(10);
 
-            // Run Listen in new thread
-            var thread = new Thread(Listen) {IsBackground = true};
-            thread.Start(socketWatch);
+                // Run Listen in new thread
+                var thread = new Thread(Listen) { IsBackground = true };
+                thread.Start(socketWatch);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         /// <summary>
@@ -58,7 +65,7 @@ namespace Server
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
@@ -80,7 +87,7 @@ namespace Server
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
@@ -97,13 +104,20 @@ namespace Server
 
         private void btnSendMsg_Click(object sender, EventArgs e)
         {
-            var msg = txtMsg.Text;
-            var buffer = Encoding.UTF8.GetBytes(msg);
-            var list = new List<byte> {0};
-            list.AddRange(buffer);
-            var newBuffer = list.ToArray();
-            var endPoint = cmbClients.SelectedItem.ToString();
-            dict[endPoint].Send(newBuffer);
+            try
+            {
+                var msg = txtMsg.Text;
+                var buffer = Encoding.UTF8.GetBytes(msg);
+                var list = new List<byte> { 0 };
+                list.AddRange(buffer);
+                var newBuffer = list.ToArray();
+                var endPoint = cmbClients.SelectedItem.ToString();
+                dict[endPoint].Send(newBuffer);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         /// <summary>
@@ -113,10 +127,12 @@ namespace Server
         /// <param name="e"></param>
         private void btnSelectFile_Click(object sender, EventArgs e)
         {
-            var ofd = new OpenFileDialog();
-            ofd.InitialDirectory = @"C:\Users\xxing\OneDrive\Desktop";
-            ofd.Title = "Please select file";
-            ofd.Filter = "All|*.*";
+            var ofd = new OpenFileDialog
+            {
+                InitialDirectory = @"C:\Users\xxing\OneDrive\Desktop",
+                Title = "Please select file",
+                Filter = "All|*.*"
+            };
             ofd.ShowDialog();
 
             txtFileName.Text = ofd.FileName;
@@ -139,11 +155,18 @@ namespace Server
 
         private void btnShake_Click(object sender, EventArgs e)
         {
-            var buffer = new byte[1];
-            buffer[0] = 2;
+            try
+            {
+                var buffer = new byte[1];
+                buffer[0] = 2;
 
-            var endpoint = cmbClients.SelectedItem.ToString();
-            dict[endpoint].Send(buffer);
+                var endpoint = cmbClients.SelectedItem.ToString();
+                dict[endpoint].Send(buffer);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

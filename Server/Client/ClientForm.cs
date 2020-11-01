@@ -27,10 +27,13 @@ namespace Client
                 socketSend.Connect(point);
                 ShowMsg("Success Connect");
 
-                var thread = new Thread(Receive) { IsBackground = true };
+                var thread = new Thread(Receive) {IsBackground = true};
                 thread.Start();
             }
-            catch (Exception exception) { }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         void ShowMsg(string msg)
@@ -40,9 +43,16 @@ namespace Client
 
         private void btnSend_Click(object sender, EventArgs e)
         {
-            var msg = txtMsg.Text.Trim();
-            var buffer = Encoding.UTF8.GetBytes(msg);
-            socketSend.Send(buffer);
+            try
+            {
+                var msg = txtMsg.Text.Trim();
+                var buffer = Encoding.UTF8.GetBytes(msg);
+                socketSend.Send(buffer);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         void Receive()
@@ -62,25 +72,30 @@ namespace Client
                     }
                     else if (buffer[0] == 1)
                     {
-                        var sfd = new SaveFileDialog();
-                        sfd.InitialDirectory = @"C:\Users\xxing\OneDrive\Desktop";
-                        sfd.Title = "Please select file";
-                        sfd.Filter = "All|*.*";
+                        var sfd = new SaveFileDialog
+                        {
+                            InitialDirectory = @"C:\Users\xxing\OneDrive\Desktop",
+                            Title = "Please select file",
+                            Filter = "All|*.*"
+                        };
                         sfd.ShowDialog(this);
                         var path = sfd.FileName;
                         using (var fsWrite = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write))
                         {
                             fsWrite.Write(buffer, 1, receive - 1);
                         }
+
                         MessageBox.Show("Success");
                     }
                     else if (buffer[0] == 2)
                     {
                         Shake();
                     }
-                    
                 }
-                catch (Exception ex) { }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
         }
 
