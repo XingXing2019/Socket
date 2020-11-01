@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -94,13 +95,55 @@ namespace Server
             Control.CheckForIllegalCrossThreadCalls = false;
         }
 
-        private void btnSend_Click(object sender, EventArgs e)
+        private void btnSendMsg_Click(object sender, EventArgs e)
         {
             var msg = txtMsg.Text;
             var buffer = Encoding.UTF8.GetBytes(msg);
-
+            var list = new List<byte> {0};
+            list.AddRange(buffer);
+            var newBuffer = list.ToArray();
             var endPoint = cmbClients.SelectedItem.ToString();
-            dict[endPoint].Send(buffer);
+            dict[endPoint].Send(newBuffer);
+        }
+
+        /// <summary>
+        /// Select file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSelectFile_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog();
+            ofd.InitialDirectory = @"C:\Users\xxing\OneDrive\Desktop";
+            ofd.Title = "Please select file";
+            ofd.Filter = "All|*.*";
+            ofd.ShowDialog();
+
+            txtFileName.Text = ofd.FileName;
+        }
+
+        private void btnSendFile_Click(object sender, EventArgs e)
+        {
+            var path = txtFileName.Text;
+            using (var fsRead = new FileStream(path, FileMode.Open, FileAccess.Read))
+            {
+                var buffer = new byte[1024 * 1024 * 5];
+                var read = fsRead.Read(buffer, 0, buffer.Length);
+                var list = new List<byte> {1};
+                list.AddRange(buffer);
+                var newBuffer = list.ToArray();
+                var endpoint = cmbClients.SelectedItem.ToString();
+                dict[endpoint].Send(newBuffer, 0, read + 1, SocketFlags.None);
+            }
+        }
+
+        private void btnShake_Click(object sender, EventArgs e)
+        {
+            var buffer = new byte[1];
+            buffer[0] = 2;
+
+            var endpoint = cmbClients.SelectedItem.ToString();
+            dict[endpoint].Send(buffer);
         }
     }
 }

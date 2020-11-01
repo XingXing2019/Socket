@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -52,8 +54,31 @@ namespace Client
                     var buffer = new byte[1024 * 1024 * 2];
                     int receive = socketSend.Receive(buffer);
                     if (receive == 0) break;
-                    var msg = Encoding.UTF8.GetString(buffer, 0, receive);
-                    ShowMsg($"{socketSend.RemoteEndPoint} : {msg}");
+
+                    if (buffer[0] == 0)
+                    {
+                        var msg = Encoding.UTF8.GetString(buffer, 1, receive - 1);
+                        ShowMsg($"{socketSend.RemoteEndPoint} : {msg}");
+                    }
+                    else if (buffer[0] == 1)
+                    {
+                        var sfd = new SaveFileDialog();
+                        sfd.InitialDirectory = @"C:\Users\xxing\OneDrive\Desktop";
+                        sfd.Title = "Please select file";
+                        sfd.Filter = "All|*.*";
+                        sfd.ShowDialog(this);
+                        var path = sfd.FileName;
+                        using (var fsWrite = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write))
+                        {
+                            fsWrite.Write(buffer, 1, receive - 1);
+                        }
+                        MessageBox.Show("Success");
+                    }
+                    else if (buffer[0] == 2)
+                    {
+                        Shake();
+                    }
+                    
                 }
                 catch (Exception ex) { }
             }
@@ -62,6 +87,15 @@ namespace Client
         private void Form1_Load(object sender, EventArgs e)
         {
             Control.CheckForIllegalCrossThreadCalls = false;
+        }
+
+        private void Shake()
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                this.Location = new Point(200, 200);
+                this.Location = new Point(205, 200);
+            }
         }
     }
 }
