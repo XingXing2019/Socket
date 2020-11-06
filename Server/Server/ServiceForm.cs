@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Server
@@ -35,8 +36,7 @@ namespace Server
                 socketWatch.Listen(10);
 
                 // Run Listen in new thread
-                var thread = new Thread(Listen) { IsBackground = true };
-                thread.Start(socketWatch);
+                Task.Run(() => Listen(socketWatch));
             }
             catch (Exception ex)
             {
@@ -47,11 +47,8 @@ namespace Server
         /// <summary>
         /// Wait for client connect and create its socket for communicating
         /// </summary>
-        void Listen(object obj)
+        void Listen(Socket socketWatch)
         {
-            var socketWatch = obj as Socket;
-            if(socketWatch == null) return;
-
             while (true)
             {
                 try
@@ -60,8 +57,7 @@ namespace Server
                     dict[socketSend.RemoteEndPoint.ToString()] = socketSend;
                     cmbClients.Items.Add(socketSend.RemoteEndPoint.ToString());
                     ShowMsg($"{socketSend.RemoteEndPoint} Connect Success");
-                    var thread = new Thread(Receive) {IsBackground = true};
-                    thread.Start(socketSend);
+                    Task.Run(() => Receive(socketSend));
                 }
                 catch (Exception ex)
                 {
@@ -70,11 +66,8 @@ namespace Server
             }
         }
 
-        void Receive(object obj)
+        void Receive(Socket socketSend)
         {
-            var socketSend = obj as Socket;
-            if(socketSend == null) return;
-
             while (true)
             {
                 try

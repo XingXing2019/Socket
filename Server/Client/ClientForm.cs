@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Client
@@ -26,9 +27,7 @@ namespace Client
                 var point = new IPEndPoint(ipAddress, Convert.ToInt32(txtPort.Text));
                 socketSend.Connect(point);
                 ShowMsg("Success Connect");
-
-                var thread = new Thread(Receive) {IsBackground = true};
-                thread.Start();
+                Task.Run(Receive);
             }
             catch (Exception ex)
             {
