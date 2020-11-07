@@ -105,10 +105,12 @@ namespace Client
 
         private void Shake()
         {
+            var x = Location.X;
+            var y = Location.Y;
             for (int i = 0; i < 1000; i++)
             {
-                this.Location = new Point(200, 200);
-                this.Location = new Point(205, 200);
+                this.Location = new Point(x, y);
+                this.Location = new Point(x + 3, y);
             }
         }
     }
